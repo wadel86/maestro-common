@@ -1,7 +1,7 @@
 package io.maestro.common.port;
 
-import io.maestro.core.command.CommandWithDestination;
-import io.maestro.core.instance.SagaInstance;
+import io.maestro.common.command.CommandWithDestination;
+import io.maestro.common.saga.instance.SagaInstance;
 
 public interface SagaDataGateway {
     SagaInstance saveSaga(SagaInstance saga);

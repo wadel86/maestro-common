@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>io.maestro</groupId>
+  <artifactId>maestro-common</artifactId>
+  <versioning>
+    <versions>
+      <version>1.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20211116160809</lastUpdated>
+  </versioning>
+</metadata>

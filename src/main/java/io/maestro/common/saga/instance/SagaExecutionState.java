@@ -2,6 +2,33 @@ package io.maestro.common.saga.instance;
 
 import io.maestro.common.exception.InconsistentSagaStateException;
 
+/**
+ * Where a saga instance has got to: a {@link SagaState} and a pointer into its
+ * definition's step list.
+ *
+ * <p><strong>The pointer always means the index of the step the saga is currently
+ * concerned with</strong>, in both directions:
+ *
+ * <ul>
+ *   <li>{@link SagaState#CREATED} &mdash; {@code -1}: nothing has run yet.</li>
+ *   <li>{@link SagaState#EXECUTING} &mdash; the step running or awaiting a reply. Steps
+ *       {@code 0 .. pointer-1} have completed; reaching the step count means done.</li>
+ *   <li>{@link SagaState#COMPENSATING} &mdash; the next step <em>to undo</em>, counting
+ *       down. Back at {@code -1}, everything that ran has been undone.</li>
+ * </ul>
+ *
+ * <p>Both ends of a saga's life sit at {@code -1}, which is what makes "compensation is
+ * complete" cheap to assert. {@link #reverseToCompensation()} is the hinge: a step that
+ * fails at index {@code p} did not complete and so needs no undo, which is why the pointer
+ * lands on {@code p - 1}.
+ *
+ * <p>Read that together with {@code SagaDefinition.getNextSteps} and
+ * {@code getStepsToCompensate} in maestro-core, which index into the step list with it. A
+ * change here that is not mirrored there is how a saga comes to skip a compensation or
+ * never finish one.
+ *
+ * <p>Not thread-safe: callers are expected to serialize access to a given instance.
+ */
 public class SagaExecutionState {
     private int pointer;
     private SagaState state;

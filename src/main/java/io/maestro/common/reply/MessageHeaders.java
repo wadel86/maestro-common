@@ -23,6 +23,16 @@ public final class MessageHeaders {
     public static final String SAGA_TYPE = "Saga-Type";
 
     /**
+     * Index of the saga step a command belongs to, taken from the instance's execution
+     * state pointer at dispatch time.
+     *
+     * <p>Echoed back, it lets the orchestrator tell a reply it is waiting for from one it
+     * has already acted on, so a redelivery cannot step the saga a second time. A
+     * participant that omits it is trusted, so this is not required of existing ones.
+     */
+    public static final String SAGA_STEP = "Saga-Step";
+
+    /**
      * Fully qualified class name of the reply payload, used to pick the handler
      * registered by {@code onReply} and to deserialize the body.
      */

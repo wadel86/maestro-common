@@ -17,6 +17,14 @@ public class SagaInstance {
         return id;
     }
 
+    /**
+     * Type of the saga this instance belongs to. A {@link io.maestro.common.port.SagaDataGateway}
+     * needs it to store the instance under the same key its {@code findSaga} looks up by.
+     */
+    public String getSagaType() {
+        return sagaType;
+    }
+
     public SagaSerializedData getSerializedData() {
         return serializedData;
     }

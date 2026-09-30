@@ -11,7 +11,7 @@ public class JsonMapper {
         try{
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException();
+            throw new RuntimeException("Unable to serialize " + object.getClass().getName(), e);
         }
     }
 

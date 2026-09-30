@@ -33,6 +33,16 @@ public final class MessageHeaders {
     public static final String SAGA_STEP = "Saga-Step";
 
     /**
+     * Fully qualified class name of the command payload, used by a participant to pick
+     * the handler registered for it and to deserialize the body.
+     *
+     * <p>Resolve it against the handlers actually registered rather than loading the
+     * named class: the value came off the wire, and whoever can publish to the command
+     * channel would otherwise choose which class gets loaded and instantiated.
+     */
+    public static final String COMMAND_TYPE = "command-type";
+
+    /**
      * Fully qualified class name of the reply payload, used to pick the handler
      * registered by {@code onReply} and to deserialize the body.
      */
